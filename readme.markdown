@@ -65,7 +65,7 @@ end
 **Method:** Receive a yo from a particular person. *You need to configure your callback URL for this.*
 
 ```
-Yo.from(param, "username") do
+Yo.from(params, "username") do
 	puts "I'll do something awesome because this user yo'd me!"
 end
 ```
