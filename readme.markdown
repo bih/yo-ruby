@@ -26,7 +26,7 @@ Before using the Yo! API, you need to obtain a free [API key](http://dev.justyo.
 
 **Required:** Now you need to include the library and set your API key.
 
-```
+```ruby
 require 'yo-ruby'
 
 Yo.api_key = "your-api-key"
@@ -34,7 +34,7 @@ Yo.api_key = "your-api-key"
 
 **Method:** Send a yo to someone
 
-```
+```ruby
 begin
 	Yo.yo!("username")
 rescue YoException => e
@@ -44,19 +44,19 @@ end
 
 **Method:** Subscriber count
 
-```
+```ruby
 Yo.subscribers
 ```
 
 **Method:** Send a yo to all your subscribers
 
-```
+```ruby
 Yo.all!
 ```
 
 **Method:** Receive a yo. *You need to configure your callback URL for this.*
 
-```
+```ruby
 Yo.receive(params) do |username|
 	puts "#{username} sent me a yo!"
 end
@@ -64,14 +64,14 @@ end
 
 **Method:** Receive a yo from a particular person. *You need to configure your callback URL for this.*
 
-```
+```ruby
 Yo.from(params, "username") do
 	puts "I'll do something awesome because this user yo'd me!"
 end
 ```
 
 ### Lazy Documentation
-```
+```ruby
 require 'sinatra'
 require 'yo-ruby'
 
