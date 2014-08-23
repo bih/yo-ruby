@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'yo-ruby'
-  s.version     = '0.1.1'
+  s.version     = '0.1.2'
   s.licenses    = ['MIT']
   s.summary     = "An awesome Ruby wrapper for the Yo! mobile app."
   s.description = "Probably the most complex Ruby wrapper for the Yo app (justyo.co) that recently raised $1 million dollars."

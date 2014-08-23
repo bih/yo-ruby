@@ -37,8 +37,22 @@ Yo.api_key = "your-api-key"
 ```ruby
 begin
 	Yo.yo!("username")
-rescue YoException => e
-	# User does not exist.
+rescue YoUserNotFound => e
+  # User does not exist.
+rescue YoRateLimitExceeded => e
+	# Rate limit of one Yo per user per minute.
+end
+```
+
+**Method:** Send a yo to someone with a URL (New)
+
+```ruby
+begin
+	Yo.yo!("username", link: "http://github.com/bih/yo-ruby")
+rescue YoUserNotFound => e
+  # User does not exist.
+rescue YoRateLimitExceeded => e
+	# Rate limit of one Yo per user per minute.
 end
 ```
 
@@ -54,18 +68,26 @@ Yo.subscribers
 Yo.all!
 ```
 
+
+**Method:** Send a yo to all your subscribers with a URL (New)
+
+```ruby
+Yo.all!(link: "http://github.com/bih/yo-ruby")
+```
+
 **Method:** Receive a yo. *You need to configure your callback URL for this.*
 
 ```ruby
-Yo.receive(params) do |username|
+Yo.receive(params, link) do |username|
 	puts "#{username} sent me a yo!"
+	puts "with a link to #{link}" unless link.nil?
 end
 ```
 
 **Method:** Receive a yo from a particular person. *You need to configure your callback URL for this.*
 
 ```ruby
-Yo.from(params, "username") do
+Yo.from(params, "username") do |link|
 	puts "I'll do something awesome because this user yo'd me!"
 end
 ```
@@ -80,8 +102,10 @@ Yo.api_key = "your-api-key"
 get '/yo/:username' do
 	begin
 		Yo.yo!(params[:username])
-	rescue YoException => e
-		puts "User doesn't exist. Wut?"
+	rescue YoUserNotFound => e
+	  puts "User does not exist."
+	rescue YoRateLimitExceeded => e
+		puts "Rate limit of one Yo per user per minute."
 	end
 end
 
@@ -94,7 +118,7 @@ get '/subscribers' do
 end
 
 get '/callback' do
-	Yo.receive(params) do |username|
+	Yo.receive(params) do |username, link|
 		# When I receive a yo to this callback, I can do something here.
 	end
 end
