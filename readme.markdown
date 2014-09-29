@@ -78,7 +78,7 @@ Yo.all!(link: "http://github.com/bih/yo-ruby")
 **Method:** Receive a yo. *You need to configure your callback URL for this.*
 
 ```ruby
-Yo.receive(params, link) do |username|
+Yo.receive(params) do |username, link|
 	puts "#{username} sent me a yo!"
 	puts "with a link to #{link}" unless link.nil?
 end
