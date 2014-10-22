@@ -61,17 +61,39 @@ class Yo
 		self.subscribers > 0
 	end
 
-	# Receive a yo.
+	# Receive a basic yo.
 	def self.receive(params)
 		parameters = __clean(params)
-		link = parameters.keys.include?(:link) ? parameters[:link] : nil
-		yield(parameters[:username].to_s, link) if parameters.keys.length > 0 and parameters.include?(:username)
+		yield(parameters[:username].to_s) if block_given? and parameters.include?(:username)
 	end
 
 	def self.from(params, username)
 		parameters = __clean(params)
-		link = parameters.keys.include?(:link) ? parameters[:link] : nil
-		yield(link) if parameters.keys.length > 0 and parameters.include?(:username) and params[:username].to_s.upcase == username.upcase
+		yield if block_given? and parameters.include?(:username) and parameters[:username].to_s.upcase == username.upcase
+	end
+
+	# Receive a yo with a link (also known as YOLINK).
+	def self.receive_with_link(params)
+		parameters = __clean(params)
+		yield(parameters[:username].to_s, parameters[:link].to_s) if block_given? and parameters.include?(:username) and parameters.include?(:link)
+	end
+
+	def self.from_with_link(params, username)
+		parameters = __clean(params)
+		yield(parameters[:link].to_s) if block_given? and parameters.include?(:username) and parameters.include?(:link) and parameters[:username].to_s.upcase == username.upcase
+	end
+
+	# Receive a yo with a location (also known as @YO).
+	def self.receive_with_location(params)
+		parameters = __clean(params)
+		lat, lon = parameters[:location].to_s.split(',').map{ |i| i.to_f }
+		yield(parameters[:username].to_s, lat, lon) if block_given? and parameters.include?(:username) and parameters.include?(:location)
+	end
+
+	def self.from_with_location(params, username)
+		parameters = __clean(params)
+		lat, lon = parameters[:location].to_s.split(',').map{ |i| i.to_f }
+		yield(parameters[:link].to_s, lat, lon) if block_given? and parameters.include?(:username) and parameters.include?(:location) and parameters[:username].to_s.upcase == username.upcase
 	end
 
 	# Private methods.

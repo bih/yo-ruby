@@ -78,17 +78,50 @@ Yo.all!(link: "http://github.com/bih/yo-ruby")
 **Method:** Receive a yo. *You need to configure your callback URL for this.*
 
 ```ruby
-Yo.receive(params) do |username, link|
+Yo.receive(params) do |username|
 	puts "#{username} sent me a yo!"
-	puts "with a link to #{link}" unless link.nil?
+end
+```
+
+**Method:** Receive a yo with a link. *You need to configure your callback URL for this.*
+
+```ruby
+Yo.receive_with_link(params) do |username, link|
+	puts "#{username} sent me a yo!"
+	puts "with a link to #{link}"
+end
+```
+
+**Method:** Receive a yo with a location. *You need to configure your callback URL for this.*
+
+```ruby
+Yo.receive_with_location(params) do |username, latitude, longitude|
+	puts "#{username} sent me a yo!"
+	puts "and location is lat: #{latitude}, lon: #{longitude}"
 end
 ```
 
 **Method:** Receive a yo from a particular person. *You need to configure your callback URL for this.*
 
 ```ruby
-Yo.from(params, "username") do |link|
+Yo.from(params, "username") do
 	puts "I'll do something awesome because this user yo'd me!"
+end
+```
+
+**Method:** Receive a yo with a link from a particular person. *You need to configure your callback URL for this.*
+
+```ruby
+Yo.from_with_link(params, "username") do |link|
+	puts "I have a HTTP link: #{link}. Do something with it?"
+end
+```
+
+**Method:** Receive a yo with location from a particular person. *You need to configure your callback URL for this.*
+
+```ruby
+Yo.from_with_location(params, "username") do |latitude, longitude|
+	puts "I have your location, sir! lat: #{latitude} and lon: #{longitude}"
 end
 ```
 
@@ -125,4 +158,4 @@ end
 ```
 
 ### Who made this?
-I did. I being [Bilawal Hameed](http://github.com/bih). Released freely under the [MIT License](http://bih.mit-license.org/).
+[Bilawal Hameed](http://github.com/bih). Released freely under the [MIT License](http://bih.mit-license.org/).
