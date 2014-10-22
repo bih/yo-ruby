@@ -86,13 +86,13 @@ class Yo
 	# Receive a yo with a location (also known as @YO).
 	def self.receive_with_location(params)
 		parameters = __clean(params)
-		lat, lon = parameters[:location].to_s.split(',').map{ |i| i.to_f }
+		lat, lon = parameters[:location].to_s.split(';').map{ |i| i.to_f }
 		yield(parameters[:username].to_s, lat, lon) if block_given? and parameters.include?(:username) and parameters.include?(:location)
 	end
 
 	def self.from_with_location(params, username)
 		parameters = __clean(params)
-		lat, lon = parameters[:location].to_s.split(',').map{ |i| i.to_f }
+		lat, lon = parameters[:location].to_s.split(';').map{ |i| i.to_f }
 		yield(parameters[:link].to_s, lat, lon) if block_given? and parameters.include?(:username) and parameters.include?(:location) and parameters[:username].to_s.upcase == username.upcase
 	end
 
