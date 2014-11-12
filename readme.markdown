@@ -151,7 +151,7 @@ get '/subscribers' do
 end
 
 get '/callback' do
-	Yo.receive(params) do |username, link|
+	Yo.receive(params) do |username|
 		# When I receive a yo to this callback, I can do something here.
 	end
 end
