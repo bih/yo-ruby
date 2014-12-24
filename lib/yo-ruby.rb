@@ -54,7 +54,7 @@ class Yo
 	end
 
 	def self.subscribers
-		self.__get('/subscribers_count/')["result"].to_i
+		self.__get('/subscribers_count/')["count"].to_i
 	end
 
 	def self.subscribers?
