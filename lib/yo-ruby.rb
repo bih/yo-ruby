@@ -61,6 +61,10 @@ class Yo
 		self.subscribers > 0
 	end
 
+	def self.new_account(username, passcode, extra_params = {})
+		self.__post('/accounts/', { new_account_username: username, new_account_passcode: passcode }.merge(extra_params))
+	end
+
 	# Receive a basic yo.
 	def self.receive(params)
 		parameters = __clean(params)
@@ -99,11 +103,11 @@ class Yo
 	# Private methods.
 	private
 		def self.__post(endpoint, params = {})
-			__parse(post(endpoint, { body: params.merge(api_token: @api_key) }))
+			__parse(post(endpoint, { body: params.merge(api_token: (params[:api_token] || @api_key)) }))
 		end
 
 		def self.__get(endpoint, params = {})
-			__parse(get(endpoint, { query: params.merge(api_token: @api_key) }))
+			__parse(get(endpoint, { query: params.merge(api_token: (params[:api_token] || @api_key)) }))
 		end
 
 		def self.__parse(res)
