@@ -1,3 +1,6 @@
+## Warning. This branch has additions because we have reverse engineered Yo's RPC internal API [found here](http://newapi.justyo.co) and if you love playing with Yo, you'll really love this branch. Have fun.
+------------------
+
 ![Yo for Ruby](http://i.imgur.com/N0L8m9P.png)
 
 

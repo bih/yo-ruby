@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bond (0.5.1)
+    ripl (0.7.1)
+      bond (~> 0.5.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ripl
