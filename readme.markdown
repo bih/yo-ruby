@@ -1,9 +1,10 @@
 ![Yo for Ruby](http://i.imgur.com/N0L8m9P.png)
 
+# Yo! API for Ruby (v1.0.0)
 
-# Unofficial Yo! API for Ruby
+[![Build Status](https://travis-ci.org/bih/yo-ruby.svg?branch=master)](https://travis-ci.org/bih/yo-ruby)
 
-In preparation for the [Yo! hackathon in New York](http://www.eventbrite.com/e/yo-hackathon-nyc-2-letters-2-hours-ready-set-yo-tickets-12145608843?aff=eorg), I have written a beautifully simple Ruby wrapper that makes it incredibly easy to interact with the famous [Yo! application](http://www.justyo.co).
+This is a Ruby API wrapper [that's fully tested](https://travis-ci.org/bih/yo-ruby). It works on Ruby 2.2.x and above. This was originally written for the [Yo! hackathon in New York](http://www.eventbrite.com/e/yo-hackathon-nyc-2-letters-2-hours-ready-set-yo-tickets-12145608843?aff=eorg) (which I later won first place with [YoAuth](http://yoauth.herokuapp.com)).
 
 
 ### Installation
@@ -17,7 +18,7 @@ $ gem install yo-ruby
 No? Stick it in your Gemfile, yo.
 
 ```
-gem 'yo-ruby'
+gem 'yo-ruby', '~> 1.0.x'
 ```
 
 ### Documentation
@@ -29,31 +30,25 @@ Before using the Yo! API, you need to obtain a free [API key](http://dev.justyo.
 ```ruby
 require 'yo-ruby'
 
-Yo.api_key = "your-api-key"
+Yo::Configuration.setup do |config|
+  config.api_key = "[insert api key here]"
+end
+
+# Alternatively: Yo::Configuration.api_key = "[insert api key here]"
 ```
 
 **Method:** Send a yo to someone
 
 ```ruby
-begin
-	Yo.yo!("username")
-rescue YoUserNotFound => e
-  # User does not exist.
-rescue YoRateLimitExceeded => e
-	# Rate limit of one Yo per user per minute.
-end
+yo = Yo.yo!("username")
+yo.ok? # => true
 ```
 
-**Method:** Send a yo to someone with a URL (New)
+**Method:** Send a yo to someone with a URL
 
 ```ruby
-begin
-	Yo.yo!("username", link: "http://github.com/bih/yo-ruby")
-rescue YoUserNotFound => e
-  # User does not exist.
-rescue YoRateLimitExceeded => e
-	# Rate limit of one Yo per user per minute.
-end
+yo = Yo.link!("username", "http://github.com/bih/yo-ruby")
+yo.ok? # => true
 ```
 
 **Method:** Subscriber count
@@ -72,57 +67,7 @@ Yo.all!
 **Method:** Send a yo to all your subscribers with a URL (New)
 
 ```ruby
-Yo.all!(link: "http://github.com/bih/yo-ruby")
-```
-
-**Method:** Receive a yo. *You need to configure your callback URL for this.*
-
-```ruby
-Yo.receive(params) do |username|
-	puts "#{username} sent me a yo!"
-end
-```
-
-**Method:** Receive a yo with a link. *You need to configure your callback URL for this.*
-
-```ruby
-Yo.receive_with_link(params) do |username, link|
-	puts "#{username} sent me a yo!"
-	puts "with a link to #{link}"
-end
-```
-
-**Method:** Receive a yo with a location. *You need to configure your callback URL for this.*
-
-```ruby
-Yo.receive_with_location(params) do |username, latitude, longitude|
-	puts "#{username} sent me a yo!"
-	puts "and location is lat: #{latitude}, lon: #{longitude}"
-end
-```
-
-**Method:** Receive a yo from a particular person. *You need to configure your callback URL for this.*
-
-```ruby
-Yo.from(params, "username") do
-	puts "I'll do something awesome because this user yo'd me!"
-end
-```
-
-**Method:** Receive a yo with a link from a particular person. *You need to configure your callback URL for this.*
-
-```ruby
-Yo.from_with_link(params, "username") do |link|
-	puts "I have a HTTP link: #{link}. Do something with it?"
-end
-```
-
-**Method:** Receive a yo with location from a particular person. *You need to configure your callback URL for this.*
-
-```ruby
-Yo.from_with_location(params, "username") do |latitude, longitude|
-	puts "I have your location, sir! lat: #{latitude} and lon: #{longitude}"
-end
+Yo.all!("http://github.com/bih/yo-ruby")
 ```
 
 ### Lazy Documentation
@@ -130,30 +75,22 @@ end
 require 'sinatra'
 require 'yo-ruby'
 
-Yo.api_key = "your-api-key"
+Yo::Configuration.setup do |config|
+  config.api_key = "[insert api key here]"
+end
 
 get '/yo/:username' do
-	begin
-		Yo.yo!(params[:username])
-	rescue YoUserNotFound => e
-	  puts "User does not exist."
-	rescue YoRateLimitExceeded => e
-		puts "Rate limit of one Yo per user per minute."
-	end
+  yo = Yo.yo!(params[:username])
+  yo.ok?
 end
 
 get '/yoall' do
-	Yo.all!
+  yo = Yo.all!
+  yo.ok?
 end
 
 get '/subscribers' do
-	puts "Subscribers: #{Yo.subscribers}"
-end
-
-get '/callback' do
-	Yo.receive(params) do |username|
-		# When I receive a yo to this callback, I can do something here.
-	end
+  puts "Subscribers: #{Yo.subscribers}"
 end
 ```
 
