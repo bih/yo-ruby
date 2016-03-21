@@ -18,7 +18,7 @@ $ gem install yo-ruby
 No? Stick it in your Gemfile, yo.
 
 ```
-gem 'yo-ruby', '~> 1.0.x'
+gem 'yo-ruby', '~> 1.0'
 ```
 
 ### Documentation
