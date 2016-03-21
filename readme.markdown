@@ -94,5 +94,14 @@ get '/subscribers' do
 end
 ```
 
+### Testing
+
+This gem is fully tested and you can find all the tests in the `spec/yo-ruby/` folder.
+You can also execute them by running the `rake` command.
+
+```
+$ rake
+```
+
 ### Who made this?
 [Bilawal Hameed](http://github.com/bih). Released freely under the [MIT License](http://bih.mit-license.org/).
