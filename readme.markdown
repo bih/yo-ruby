@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/bih/yo-ruby.svg?branch=master)](https://travis-ci.org/bih/yo-ruby)
 
-This is a Ruby API wrapper [that's fully tested](https://travis-ci.org/bih/yo-ruby). It works on Ruby 2.x. This was originally written for the [Yo! hackathon in New York](http://www.eventbrite.com/e/yo-hackathon-nyc-2-letters-2-hours-ready-set-yo-tickets-12145608843?aff=eorg) (which I later won first place with [YoAuth](http://yoauth.herokuapp.com)).
+This is a Ruby API wrapper [that's fully tested](https://travis-ci.org/bih/yo-ruby). It works on Ruby 2.1 and above. This was originally written for the [Yo! hackathon in New York](http://www.eventbrite.com/e/yo-hackathon-nyc-2-letters-2-hours-ready-set-yo-tickets-12145608843?aff=eorg) (which I later won first place with [YoAuth](http://yoauth.herokuapp.com)).
 
 
 ### Installation
