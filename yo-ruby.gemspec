@@ -18,5 +18,6 @@ Gem::Specification.new do |s|
   
   s.add_dependency "rspec", "~> 3.4"
   s.add_dependency "coveralls"
+	s.add_dependency "rake"
   s.add_runtime_dependency "httparty", "~> 0.13"
 end
