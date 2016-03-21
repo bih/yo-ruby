@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.files       = ["lib/yo-ruby.rb"]
   s.homepage    = 'http://github.com/bih/yo-ruby'
 
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.0.0'
   
-  s.add_development_dependency "rspec", "~> 3.4"
+  s.add_dependency "rspec", "~> 3.4"
   s.add_runtime_dependency "httparty", "~> 0.13"
 end
